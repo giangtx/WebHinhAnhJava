@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-lg-5 col-md-4 col-sm-4">
 				<div class="site-title-shop" align="center">
-					<a href="index.php">Slytherin</a>
+					<a href="/Slytherin">Slytherin</a>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-5 col-sm-3" align="right">
@@ -35,7 +35,15 @@
 							</div>
 						</div>
 						<div class="col-md-5" style="padding-left: 0px;">
-							<a href='login.php' id='login-top'>Đăng nhập</a>
+							<c:choose>
+								<c:when test="${user!=null}">
+									<a href='/Slytherin/hoso' id="account-name">${user.getTenDangNhap()}</a>
+									<a href='/Slytherin/dangnhap/dangxuat' id="logout">/Đăng xuất</a>
+								</c:when>
+								<c:otherwise>
+									<a href='/Slytherin/dangnhap' id='login-top'>Đăng nhập</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -52,7 +60,7 @@
 						    	<a class="nav-link active" href="/Slytherin">Trang chủ</a>
 						  	</li>
 						  	<li class="nav-item">
-						    	<a class="nav-link" href="">Bộ sưu tập</a>
+						    	<a class="nav-link" href="/Slytherin/bosuutap">Bộ sưu tập</a>
 						  	</li>
 						  	<li class="nav-item">
 						    	<a class="nav-link" href="diendan">Diễn đàn</a>
@@ -76,167 +84,31 @@
 					<div id="list-shop">
 						<span class="text-bold-shop">Bộ sưu tập</span><br><br>
 						<ul >
-							<li class="p-b-li"><a href="collection.php" class="font-info-bottom">Tất cả</a></li>
-							<li class="p-b-li"><a href="collection.php" class="font-info-bottom">Động vật</a></li>
-							<li class="p-b-li"><a href="collection.php" class="font-info-bottom">Thiên nhiên</a></li>
-							<li class="p-b-li"><a href="collection.php" class="font-info-bottom">Công nghệ</a></li>
-							<li class="p-b-li"><a href="collection.php" class="font-info-bottom">Thức ăn</a></li>
-							<li class="p-b-li"><a href="collection.php" class="font-info-bottom">Sách</a></li>
-							<li class="p-b-li"><a href="collection.php" class="font-info-bottom">Lễ hội</a></li>
-							<li class="p-b-li"><a href="collection.php" class="font-info-bottom">Khác</a></li>
+							<c:forEach items="${dsbosuutap}" var="bosuutaps">
+								<c:choose>
+									<c:when test="${bosuutaps.getMaBoSuuTap()== mabosuutap}">
+										<li class="p-b-li"><a href="/Slytherin/bosuutap/${bosuutaps.getMaBoSuuTap()}" class="font-info-bottom" style="font-weight: 500;color: #007bff;">${bosuutaps.getTenBoSuuTap() }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li class="p-b-li"><a href="/Slytherin/bosuutap/${bosuutaps.getMaBoSuuTap()}" class="font-info-bottom">${bosuutaps.getTenBoSuuTap() }</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-10 col-md-10 col-sm-10">
 					<div class="box-list">
 						<div class="row">
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="hinhanh" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image1-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image2-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image3-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image15-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image22-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image13-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image19-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image21-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image14-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image1-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image2-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image3-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image1-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image2-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image3-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image1-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image2-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image3-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image1-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image2-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
-								<a href="#" title="">
-									<div class="image-background-form">
-										<img class="image-background" src='<c:url value="/resources/image/resize/image3-min.jpg"/>' alt="">
-									</div>
-								</a>
-							</div>
+							<c:forEach items="${dshinhanh}" var="hinhanh">
+								<div class="col-lg-4 col-md-6 col-sm-12" style="padding: 0">
+									<a href="/Slytherin/hinhanh/${hinhanh.getTenHinhAnh()}" title="">
+										<div class="image-background-form">
+											<img class="image-background" src='<c:url value="/resources/image/resize/${hinhanh.getResize() }"/>' alt="">
+										</div>
+									</a>
+								</div>
+							</c:forEach>
 							
 						</div>
 					</div>

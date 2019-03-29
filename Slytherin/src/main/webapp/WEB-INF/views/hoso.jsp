@@ -35,7 +35,15 @@
 							</div>
 						</div>
 						<div class="col-md-5" style="padding-left: 0px;">
-							<a href='login.php' id='login-top'>Đăng nhập</a>
+							<c:choose>
+								<c:when test="${user!=null}">
+									<a href='/Slytherin/hoso' id="account-name">${user.getTenDangNhap()}</a>
+									<a href='/Slytherin/dangnhap/dangxuat' id="logout">/Đăng xuất</a>
+								</c:when>
+								<c:otherwise>
+									<a href='/Slytherin/dangnhap' id='login-top'>Đăng nhập</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -75,7 +83,11 @@
                 <a href="" style="font-weight: 500">Hồ sơ của tôi</a>
                 <a href="hoso/anhcuatoi">Ảnh của tôi</a>
                 <a href="hoso/taianh">Tải lên</a>
-                <a href="hoso/duyetanh" >Phê duyệt ảnh</a>
+                <c:choose>
+                	<c:when test="${user.getChucVu().getMaChucVu()==1 }">
+                		<a href="hoso/duyetanh" >Phê duyệt ảnh</a>
+                	</c:when>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -89,7 +101,7 @@
                 <div class="bocboc">
                     <p style="margin-left: 10%;">Ảnh đại diện</p>
                     <div class="avatar-image">
-                    	<img class="image-avatar" src='<c:url value="/resources/image/avatar/f375147c-15e4-4349-8518-965f01b2f868.jpg"/>'/>
+                    	<img class="image-avatar" src='<c:url value="/resources/image/avatar/${user.getAnhDaiDien()}"/>'/>
                     </div>
                     <div style="padding-left: 150px;">
                     	<div class="form-upload">
@@ -106,35 +118,42 @@
             <div class="col-lg-7 col-md-5">
             	<div class="bocboc">
                     <label>Tên người dùng</label>
-                    <input type="text" value=""/> <br />
+                    <input type="text" value="${user.getTenDangNhap() }"/> <br />
                 </div>
                 <div class="bocboc">
                     <label>Gmail</label>
-                    <input type="text" value=""/> <br />
+                    <input type="text" value="${user.getEmail() }"/> <br />
                 </div>
                 <div class="bocboc">
                     <label>Họ và tên</label>
-                    <input id="txtHoTen" name="txtTenHoTen" type="text" value="" />
+                    <input id="txtHoTen" name="txtTenHoTen" type="text" value="${user.getHoTen() }" />
                 </div>
                 <div class="bocboc">
                     <label id="lb-gioitinh">Giới tính</label>
                     <select name="id-gioitinh" id="id-gioitinh">
-                    	<option value selected >-------</option>
-                        <option value="Nam">Nam</option>
-                        <option value="Nữ">Nữ</option>
+                    	<c:choose>
+                    		<c:when test="${user.getGioiTinh()==null}">
+                    			<option value selected >-------</option>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<option value selected>${user.getGioiTinh()}</option>
+                    		</c:otherwise>
+                    	</c:choose>
+                    	<option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>          
                     </select>
                 </div>
                 <div class="bocboc">
                     <label>Thành phố</label>
-                    <input id="txtThanhPho" name="txtThanhPho" type="text" value="" />
+                    <input id="txtThanhPho" name="txtThanhPho" type="text" value="${user.getThanhPho() }" />
                 </div>
                 <div class="bocboc">
                     <label>Quốc gia</label>
-                    <input id="txtQuocGia" name="txtQuocGia" type="text" value="" />
+                    <input id="txtQuocGia" name="txtQuocGia" type="text" value="${user.getQuocGia() }" />
                 </div>
                 <div class="bocboc">
                     <label>Ngày tháng năm sinh</label>
-					<input id="txtNgaySinh" name="txtNgaySinh" type="text" value="" placeholder="yyyy/mm/dd" />
+					<input id="txtNgaySinh" name="txtNgaySinh" type="text" value="${user.getNgaySinh() }" placeholder="yyyy/mm/dd" />
                 </div>
             </div>
         </div>

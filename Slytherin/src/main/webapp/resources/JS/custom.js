@@ -1,19 +1,116 @@
+$(document).ready(function(){
+	$('#btnLogin').click(function(){
+		var username= $('#txtUsername').val();
+		var password= $('#txtPassword').val();
+		var error= $('#error');
+		error.html("");
+		$.ajax({
+			url: '/Slytherin/dangnhap/xulydangnhap',
+			type: 'POST',
+			data: {
+				username: username,
+				password: password
+			},
+			success: function(response){
+				if (response=="thanhcong") {
+					window.location.href='/Slytherin';
+				}
+				else if(response=="thatbai"){
+					error.html("<p>Tài khoản không tồn tại</p>");
+				}
+				else if (response=="xacthuc") {
+					error.html("<p>Tài khoản của bạn chưa được kích hoạt,vui lòng kiểm tra gmail để xác nhận</p>");
+				}else if (response=="saimk") {
+					error.html("<p>Mật khẩu không đúng, vui lòng nhập lại</p>");
+				}
+			}
+		});
+	});
+	$('#btnSignin').click(function(){
+		var username= $('#txtUsernameLogin').val();
+		var password= $('#txtPasswordLogin').val();
+		var ConfirmPassword= $('#txtConfirmPassword').val();
+		var email= $('#txtEmail').val();
+		var error= $('#errorSignin');
+		error.html("");
+		if (password==ConfirmPassword) {
+			$.ajax({
+				url: '/Slytherin/dangky/xulydangky',
+				type: 'POST',
+				data: {
+					username: username,
+					password: password,
+					email: email
+				},
+			success: function(response){
+				if (response=="thanhcong") {
+					error.html("<p>Đăng ký thành công,xin hãy vào gmail để xác thực tài khoản</p>")
+				}
+				else if(response=="tontai"){
+					error.html("<p>Tài Khoản đã tồn tại</p>");
+				}else if(response=="thatbai"){
+					error.html("<p>Đăng ký thất bại</p>");
+				}
+			}
+		});
+		}else{
+			error.html("<p>Mật khẩu nhập lại phải trùng với mật khẩu ban đầu</p>")
+		}
+	});
+	$('#like-image').click(function(){
+        $.ajax({
+            url: '/Slytherin/hinhanh/thich',
+            type: 'POST',
+            data: {
+                idImage: idImage
+            },
+            success: function(response){
+                if (response=="thanhcong") {
+                    $('#like-image').html('<img src="/Slytherin/resources/image/icon/like-like.png">');
+                }else if(response=="thatbai"){
+                    $('#like-image').html('<img src="/Slytherin/resources/image/icon/like.png">');
+                }
+            }
+        });
+    });
+	$('#btn-comment').click(function(){
+        var comment=$('#txtComment').val();
+        $.ajax({
+            url: '/Slytherin/hinhanh/binhluan',
+            type: 'POST',
+            data: {
+                comment: comment,
+                idImage: idImage
+            },
+            success: function(response){
+                if (response=="thanhcong") {
+                    window.location.reload();
+                }else if(response=="chuadangnhap"){
+                	alert("Bạn phải đăng nhập để xử dụng chức năng này!")
+                }
+            }
+        });
+    });
+});
 window.onscroll = function() {myFunction()};
 
 // Get the navbar
+
 var navbar = document.getElementById("nav-sticky");
-
 // Get the offset position of the navbar
-var sticky = navbar.offsetTop;
 
+var sticky = navbar.offsetTop;
 // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
 function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
-  } else {
-    navbar.classList.remove("sticky");
-  }
+	
+	
+	if (window.pageYOffset >= sticky) {
+		navbar.classList.add("sticky")
+	} else {
+		navbar.classList.remove("sticky");
+	}
 }
+
 /*$(document).ready(function(){
 	$('#list-photo-approval button').click(function(){
 		var idphoto= $(this).attr('id');
@@ -87,27 +184,7 @@ function myFunction() {
             }
         }
     });
-    $('#btn-comment').click(function(){
-        var comment=$('#txtComment').val();
-        if(typeof idUserName != "undefined"){
-            $.ajax({
-                url: 'resolvecomment.php',
-                type: 'POST',
-                data: {
-                    comment: comment,
-                    idUserName: idUserName,
-                    idImage: idImage
-                },
-                success: function(response){
-                    if (response==1) {
-                        window.location.reload();
-                    }
-                }
-            });
-        }else{
-            alert("Bạn phải đăng nhập để có thể bình luận được ảnh.");
-        }
-    });
+    
     $('#luu').click(function(){
         var hoten=$('#txtHoTen').val();
         var gioitinh=$('#id-gioitinh').val();
@@ -151,23 +228,7 @@ function myFunction() {
             }
         });
     });
-    $('#like-image').click(function(){
-        $.ajax({
-            url: 'resolvelike.php',
-            type: 'POST',
-            data: {
-                idUserName: idUserName,
-                idImage: idImage
-            },
-            success: function(response){
-                if (response==1) {
-                    $('#like-image').html('<img src="image/icon/like-like.png">');
-                }else{
-                    $('#like-image').html('<img src="image/icon/like.png">');
-                }
-            }
-        });
-    });
+    
     $('#block').click(function(){
         $.ajax({
             url: 'resolveblock.php',

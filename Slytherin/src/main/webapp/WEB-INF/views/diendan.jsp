@@ -35,7 +35,15 @@
 							</div>
 						</div>
 						<div class="col-md-5" style="padding-left: 0px;">
-							<a href='login.php' id='login-top'>Đăng nhập</a>
+							<c:choose>
+								<c:when test="${user!=null}">
+									<a href='/Slytherin/hoso' id="account-name">${user.getTenDangNhap()}</a>
+									<a href='/Slytherin/dangnhap/dangxuat' id="logout">/Đăng xuất</a>
+								</c:when>
+								<c:otherwise>
+									<a href='/Slytherin/dangnhap' id='login-top'>Đăng nhập</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>

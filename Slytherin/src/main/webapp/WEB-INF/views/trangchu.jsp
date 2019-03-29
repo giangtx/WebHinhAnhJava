@@ -32,7 +32,16 @@
 							</div>
 						</div>
 						<div class="col-md-4" style="padding-left: 0px;">
-							<a href='dangnhap' id='login-top'>Đăng nhập</a>
+							<c:choose>
+								<c:when test="${user!=null}">
+									<a href='/Slytherin/hoso' id="account-name">${user.getTenDangNhap()}</a>
+									<a href='dangnhap/dangxuat' id="logout">/Đăng xuất</a>
+								</c:when>
+								<c:otherwise>
+									<a href='dangnhap' id='login-top'>Đăng nhập</a>
+								</c:otherwise>
+							</c:choose>
+							
 						</div>
 					</div>
 				</div>
@@ -44,7 +53,7 @@
 			<div class="col-12">
 				<div class="padding-sly">
 					<h1 class="site-title">
-						<a href="">Slytherin</a>
+						<a href="/Slytherin">Slytherin</a>
 					</h1>
 					<p class="site-tiny">Khám phá thế giới muôn màu</p>
 				</div>
@@ -141,72 +150,21 @@
 		<div class="container-fluid">
 			<span class="f-40">BỘ SƯU TẬP NỔI BẬT</span>
 			<div class="row" style="margin-top: 30px;">
+				<c:forEach items="${bosuutap}" var="dsbosuutap">
 					<div class="col-lg-4 col-md-6 col-sm-12 p-l-r-bst">
-					<div class="grid">
-						<figure class="effect-marley">
-	                        <img src='<c:url value="/resources/image/dog-min.jpg"/>' alt="img12"/>
-	                        <figcaption>
-	                            <h2>Động <span>Vật</span></h2>
-	                            <p>Khám phá động vật qua những hình ảnh và những khoảng khắc của chúng.</p>
-	                        </figcaption>
-	                    </figure>
+						<a href="/Slytherin/bosuutap/${dsbosuutap.getMaBoSuuTap()}" title="">
+							<div class="grid">
+								<figure class="effect-marley">
+			                        <img src='<c:url value="/resources/image/${dsbosuutap.getAnhBoSuuTap() }"/>' alt="img12"/>
+			                        <figcaption>
+			                            <h2>${dsbosuutap.getTenBoSuuTap()}</h2>
+			                            <p>${dsbosuutap.getMoTa()}</p>
+			                        </figcaption>
+			                    </figure>
+							</div>
+						</a>
 					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 p-l-r-bst">
-					<div class="grid">
-						<figure class="effect-marley">
-	                        <img src='<c:url value="/resources/image/nature-min.jpg"/>' alt="img12"/>
-	                        <figcaption>
-	                            <h2>Thiên <span>Nhiên</span></h2>
-	                            <p>Khám phá vẻ đẹp hùng vĩ của thiên nhiên qua hình ảnh.</p>
-	                        </figcaption>
-	                    </figure>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 p-l-r-bst">
-					<div class="grid">
-						<figure class="effect-marley">
-	                        <img src='<c:url value="/resources/image/food-min.jpg"/>' alt="img12"/>
-	                        <figcaption>
-	                            <h2>Đồ <span>Ăn</span></h2>
-	                            <p>Đắm chìm vào thế giới của đồ ăn qua những hình ảnh của chúng tôi.</p>
-	                        </figcaption>
-	                    </figure>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 p-l-r-bst">
-					<div class="grid">
-						<figure class="effect-marley">
-	                        <img src='<c:url value="/resources/image/tech-min.jpg"/>' alt="img12"/>
-	                        <figcaption>
-	                            <h2>Công <span>Nghệ</span></h2>
-	                            <p>Cùng nhau học hỏi và khám phá công nghệ .</p>
-	                        </figcaption>
-	                    </figure>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 p-l-r-bst">
-					<div class="grid">
-						<figure class="effect-marley">
-	                        <img src='<c:url value="/resources/image/holiday-min.jpg"/>' alt="img12"/>
-	                        <figcaption>
-	                            <h2>Lễ <span>Hội</span></h2>
-	                            <p>Tìm hiểu về những lễ hội ,tập tục văn hóa nổi bật.</p>
-	                        </figcaption>
-	                    </figure>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 col-sm-12 p-l-r-bst">
-					<div class="grid">
-						<figure class="effect-marley">
-	                        <img src='<c:url value="/resources/image/game-min.jpg"/>' alt="img12"/>
-	                        <figcaption>
-	                            <h2>Trò <span>Chơi</span></h2>
-	                            <p>Lạc vào thế giới game đầy màu sắc.</p>
-	                        </figcaption>
-	                    </figure>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -215,86 +173,13 @@
 			<span class="f-40">HÌNH ẢNH NỔI BẬT</span>
 			<div id="featured-photos-list">
 				<div class="row">
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="hinhanh" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image1.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image2.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image3.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image4-min.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image5.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image6-min.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image7-min.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image8.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image9-min.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image10.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image11.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image12.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image13.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image14.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image15.jpg"/>' alt="">
-						</a>
-					</div>
-					<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
-						<a href="" title="">
-							<img class="featured-photos-object" src='<c:url value="/resources/image/background/image16.jpg"/>' alt="">
-						</a>
-					</div>
+					<c:forEach items="${hinhanh}" var="dshinhanh">
+						<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
+							<a href="hinhanh/${dshinhanh.getTenHinhAnh()}" title="">
+								<img class="featured-photos-object" src='<c:url value="/resources/image/resize/${dshinhanh.getResize()}"/>' alt="">
+							</a>
+						</div>
+					</c:forEach>
 					
 				</div>
 			</div>

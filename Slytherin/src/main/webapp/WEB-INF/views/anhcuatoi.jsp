@@ -35,7 +35,15 @@
 							</div>
 						</div>
 						<div class="col-md-5" style="padding-left: 0px;">
-							<a href='login.php' id='login-top'>Đăng nhập</a>
+							<c:choose>
+								<c:when test="${user!=null}">
+									<a href='/Slytherin/hoso' id="account-name">${user.getTenDangNhap()}</a>
+									<a href='/Slytherin/dangnhap/dangxuat' id="logout">/Đăng xuất</a>
+								</c:when>
+								<c:otherwise>
+									<a href='/Slytherin/dangnhap' id='login-top'>Đăng nhập</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -52,10 +60,10 @@
 		                        <a class="nav-link active" href="/Slytherin">Trang chủ</a>
 		                     </li>
 		                     <li class="nav-item">
-		                        <a class="nav-link" href="bosuutap">Bộ sưu tập</a>
+		                        <a class="nav-link" href="/Slytherin/bosuutap">Bộ sưu tập</a>
 		                     </li>
 		                     <li class="nav-item">
-		                        <a class="nav-link" href="diendan">Diễn đàn</a>
+		                        <a class="nav-link" href="/Slytherin/diendan">Diễn đàn</a>
 		                     </li>
 		                     <li class="nav-item">
 		                        <a class="nav-link" href="about.php">Thông tin</a>
@@ -75,7 +83,11 @@
                 <a href="/Slytherin/hoso">Hồ sơ của tôi</a>
                 <a href="" style="font-weight: 500">Ảnh của tôi</a>
                 <a href="taianh">Tải lên</a>
-                <a href="duyetanh" >Phê duyệt ảnh</a>
+                <c:choose>
+                	<c:when test="${user.getChucVu().getMaChucVu()==1 }">
+                		<a href="duyetanh" >Phê duyệt ảnh</a>
+                	</c:when>
+                </c:choose>
             </div>
         </div>
     </div>
@@ -83,17 +95,47 @@
         <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12">
-              		<p id="acc-top">Hình ảnh</p>
+              		<p id="acc-top">Hình ảnh của bạn</p>
               </div>
-              <div id="my-image-null">
-              		<img src='<c:url value="/resources/image/icon/image-icon.png"/>' class='image-upload-form'>
+              <c:choose>
+              	<c:when test="${anhcuatoi.size()>0}">
+              		<c:forEach items="${anhcuatoi}" var="dsanhcuatoi">
+              			<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
+                          <a href="/Slytherin/hinhanh/${dsanhcuatoi.getTenHinhAnh() }" title="">
+                            <div class="image-background-form-mypicture">
+                              <img class="featured-photos-object-mypicture" src='<c:url value="/resources/image/resize/${dsanhcuatoi.getResize() }"/>' alt="">
+                            </div>
+                          </a>
+                      </div>
+              		</c:forEach>
+              	</c:when>
+              	<c:otherwise>
+              		<div id="my-image-null">
+	              		<img src='<c:url value="/resources/image/icon/image-icon.png"/>' class='image-upload-form'>
+	              </div>
+              	</c:otherwise>
+              </c:choose>
+              <div class="col-lg-12" style="padding-top: 30px;">
+                <p id="acc-top">Hình ảnh đang chờ được duyệt</p>
               </div>
-                <div class="col-lg-12" style="padding-top: 30px;">
-                  <p id="acc-top">Hình ảnh đang chờ được duyệt</p>
-                </div>
-                <div id="my-image-null">
-                    <img src='<c:url value="/resources/image/icon/image-icon.png"/>' class='image-upload-form'>
-                </div>
+              <c:choose>
+              	<c:when test="${anhchuaduyet.size()>0}">
+              		<c:forEach items="${anhchuaduyet}" var="dsanhcuatoichuaduyet">
+              			<div class="col-lg-3 col-md-4 col-sm-6 p-l-r-5">
+                          <a href="/Slytherin/hinhanh/${dsanhcuatoichuaduyet.getTenHinhAnh() }>" title="">
+                            <div class="image-background-form-mypicture">
+                              <img class="featured-photos-object-mypicture" src='<c:url value="/resources/image/resize/${dsanhcuatoichuaduyet.getResize() }"/>' alt="">
+                            </div>
+                          </a>
+                      </div>
+              		</c:forEach>
+              	</c:when>
+              	<c:otherwise>
+              		<div id="my-image-null">
+	              		<img src='<c:url value="/resources/image/icon/image-icon.png"/>' class='image-upload-form'>
+	              	</div>
+              	</c:otherwise>
+              </c:choose>
             </div>
         </div>
     </div>

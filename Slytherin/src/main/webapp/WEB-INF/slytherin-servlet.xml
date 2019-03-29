@@ -7,9 +7,11 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 	<context:component-scan base-package="com.giang.controller"/>
-	
+	<context:component-scan base-package="com.giang.dao"/>
+	<context:component-scan base-package="com.giang.service"/>
 	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
 	<mvc:annotation-driven enable-matrix-variables="true"/>
+	
 	<import resource="classpath:IoC.xml"/>
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"></property>

@@ -35,7 +35,15 @@
 							</div>
 						</div>
 						<div class="col-md-5" style="padding-left: 0px;">
-							<a href='login.php' id='login-top'>Đăng nhập</a>
+							<c:choose>
+								<c:when test="${user!=null}">
+									<a href='/Slytherin/hoso' id="account-name">${user.getTenDangNhap()}</a>
+									<a href='/Slytherin/dangnhap/dangxuat' id="logout">/Đăng xuất</a>
+								</c:when>
+								<c:otherwise>
+									<a href='/Slytherin/dangnhap' id='login-top'>Đăng nhập</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -52,10 +60,10 @@
 		                        <a class="nav-link active" href="/Slytherin">Trang chủ</a>
 		                     </li>
 		                     <li class="nav-item">
-		                        <a class="nav-link" href="bosuutap">Bộ sưu tập</a>
+		                        <a class="nav-link" href="/Slytherin/bosuutap">Bộ sưu tập</a>
 		                     </li>
 		                     <li class="nav-item">
-		                        <a class="nav-link" href="diendan">Diễn đàn</a>
+		                        <a class="nav-link" href="/Slytherin/diendan">Diễn đàn</a>
 		                     </li>
 		                     <li class="nav-item">
 		                        <a class="nav-link" href="about.php">Thông tin</a>
@@ -75,7 +83,11 @@
                 <a href="/Slytherin/hoso">Hồ sơ của tôi</a>
                 <a href="anhcuatoi">Ảnh của tôi</a>
                 <a href="" style="font-weight: 500">Tải lên</a>
-                <a href="duyetanh" >Phê duyệt ảnh</a>
+                <c:choose>
+                	<c:when test="${user.getChucVu().getMaChucVu()==1 }">
+                		<a href="duyetanh" >Phê duyệt ảnh</a>
+                	</c:when>
+                </c:choose>
             </div>
         </div>
     </div>

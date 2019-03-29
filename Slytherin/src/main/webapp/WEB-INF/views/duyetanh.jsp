@@ -35,7 +35,15 @@
 							</div>
 						</div>
 						<div class="col-md-5" style="padding-left: 0px;">
-							<a href='login.php' id='login-top'>Đăng nhập</a>
+							<c:choose>
+								<c:when test="${user!=null}">
+									<a href='/Slytherin/hoso' id="account-name">${user.getTenDangNhap()}</a>
+									<a href='/Slytherin/dangnhap/dangxuat' id="logout">/Đăng xuất</a>
+								</c:when>
+								<c:otherwise>
+									<a href='/Slytherin/dangnhap' id='login-top'>Đăng nhập</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
@@ -52,10 +60,10 @@
 		                        <a class="nav-link active" href="/Slytherin">Trang chủ</a>
 		                     </li>
 		                     <li class="nav-item">
-		                        <a class="nav-link" href="bosuutap">Bộ sưu tập</a>
+		                        <a class="nav-link" href="/Slytherin/bosuutap">Bộ sưu tập</a>
 		                     </li>
 		                     <li class="nav-item">
-		                        <a class="nav-link" href="diendan">Diễn đàn</a>
+		                        <a class="nav-link" href="/Slytherin/diendan">Diễn đàn</a>
 		                     </li>
 		                     <li class="nav-item">
 		                        <a class="nav-link" href="about.php">Thông tin</a>
@@ -81,54 +89,26 @@
     </div>
     <div id="list-photo-approval">
     	<div class="container-fluid">
-			<div class="Photo-approval">
-	            <div class="row">
-	                <div class="col-lg-8">
-	                    <img class="image-approval" src='<c:url value="/resources/image/background/15456.jpg"/>' alt="">
-	                </div>
-	                <div class="col-lg-4">
-	                	<div id="clickbutton-approval-" >
-	                		<button type="" id="d">Duyệt ảnh</button>
-	                    	<button type="" id="x">Xóa</button>
-	                	</div>
-	                	<span class="span-approval">Người đăng:<a href=""></a></span><br>
-	                    <span class="span-approval">Mô tả hình ảnh: </span><br>
-	                    <span class="span-approval">Ngày đăng: </span>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="Photo-approval">
-	            <div class="row">
-	                <div class="col-lg-8">
-	                    <img class="image-approval" src='<c:url value="/resources/image/background/a1.jpg"/>' alt="">
-	                </div>
-	                <div class="col-lg-4">
-	                	<div id="clickbutton-approval-" >
-	                		<button type="" id="d">Duyệt ảnh</button>
-	                    	<button type="" id="x">Xóa</button>
-	                	</div>
-	                	<span class="span-approval">Người đăng:<a href=""></a></span><br>
-	                    <span class="span-approval">Mô tả hình ảnh: </span><br>
-	                    <span class="span-approval">Ngày đăng: </span>
-	                </div>
-	            </div>
-	        </div>
-	        <div class="Photo-approval">
-	            <div class="row">
-	                <div class="col-lg-8">
-	                    <img class="image-approval" src='<c:url value="/resources/image/background/a2.jpg"/>' alt="">
-	                </div>
-	                <div class="col-lg-4">
-	                	<div id="clickbutton-approval-" >
-	                		<button type="" id="d">Duyệt ảnh</button>
-	                    	<button type="" id="x">Xóa</button>
-	                	</div>
-	                	<span class="span-approval">Người đăng:<a href=""></a></span><br>
-	                    <span class="span-approval">Mô tả hình ảnh: </span><br>
-	                    <span class="span-approval">Ngày đăng: </span>
-	                </div>
-	            </div>
-	        </div>
+	        <c:forEach items="${hinhanhpd}" var="hinhanhpds">
+	        	<div class="Photo-approval">
+		            <div class="row">
+		                <div class="col-lg-8">
+		                    <img class="image-approval" src='<c:url value="/resources/image/background/${hinhanhpds.getTenHinhAnh() }"/>' alt="">
+		                </div>
+		                <div class="col-lg-4">
+		                	<div id="clickbutton-approval-" >
+		                		<button type="" id="d">Duyệt ảnh</button>
+		                    	<button type="" id="x">Xóa</button>
+		                	</div>
+		                	<span class="span-approval">Người đăng: <a href="">${hinhanhpds.getTaikhoan().getTenDangNhap() }</a></span><br>
+		                	<span class="span-approval">Thể loại: ${hinhanhpds.getBosuutap().getTenBoSuuTap() }</span><br>
+		                    <span class="span-approval">Mô tả hình ảnh: ${hinhanhpds.getMoTaHinhAnh() }</span><br>
+		                    <span class="span-approval">Ngày đăng: ${hinhanhpds.getNgayDang()}</span>
+		                    
+		                </div>
+		            </div>
+		        </div>
+	        </c:forEach>
 	    </div>
     </div>
 	<div class="info-bottom" style="margin-top: 21px;">
