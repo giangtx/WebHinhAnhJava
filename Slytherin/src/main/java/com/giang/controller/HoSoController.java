@@ -41,7 +41,6 @@ public class HoSoController {
 	}
 	@RequestMapping("/taianh")
 	public String TaiAnh(){
-		
 		return "taianh";
 	}
 	@RequestMapping("/duyetanh")
