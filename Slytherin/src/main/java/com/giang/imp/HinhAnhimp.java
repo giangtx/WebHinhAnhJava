@@ -14,4 +14,6 @@ public interface HinhAnhimp {
 	public List<HinhAnh> LayAnhChuaDuocPheDuyet();
 	public List<HinhAnh> LayDanhSachAnhTheoMaTaiKhoan(int maTaiKhoan);
 	public List<HinhAnh> LayDanhSachAnhChuaDuocDuyetTheoMaTaiKhoan(int maTaiKhoan);
+	public List<HinhAnh> LayDanhSachHinhAnhForum();
+	public boolean ThemHinhAnh(HinhAnh hinhanh);
 }

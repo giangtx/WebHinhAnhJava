@@ -91,6 +91,57 @@ $(document).ready(function(){
             }
         });
     });
+	$('#upload').on('click', function () {
+        var name = document.getElementById("file").files[0].name;
+        var form_data = new FormData();
+        var ext = name.split('.').pop().toLowerCase();
+        /*var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("file").files[0]);*/
+        var f = document.getElementById("file").files[0];
+        var fsize = f.size;
+        var error= $('#upload_image');
+        var image= $('#photo-upload');
+        var coll= $('#col-val').val();
+        var description= $('#txtDescription').val();
+        var sizefile=parseInt(fsize/1024);
+        var accountName=$('#account-name').text();
+        error.html("");
+        if(coll==""){
+            $('#upload_image').html("<p>Bạn phải chọn thể loại ảnh</p>");
+        }else{
+            if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+                $('#upload_image').html("<p>File không hợp lệ</p>");
+            }else{
+                if(fsize < 20000000){
+                    form_data.append("file", document.getElementById('file').files[0]);
+                    form_data.append('coll', coll);
+                    form_data.append('description', description);
+                    form_data.append('sizefile', sizefile);
+                    $.ajax({
+                        url:"/Slytherin/hoso/xulytaianh",
+                        method:"POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success:function(response){
+                            if(response == "thanhcong"){
+                            image.html("<img src='/Slytherin/resources/image/background/"+name+"' class='image-upload-form'>");
+                            error.html("<p>Upload file thành công</p>");
+                            
+                        }
+                        else{
+                            error.html("<p>"+response+"</p>");
+                        }
+                        }
+                    });
+                }
+                else{
+                   $('#upload_image').html("<p>Ảnh phải có kích cỡ dưới 20MB</p>");
+                }
+            }
+        }
+    });
 });
 window.onscroll = function() {myFunction()};
 

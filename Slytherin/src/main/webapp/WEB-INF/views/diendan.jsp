@@ -81,90 +81,51 @@
 		<div class="container-fluid" style="padding: 0px;">
 			<div class="row">
 				<div class="col-lg-8">
-					<div class="froum-content">
-						<div class="header-avatar-froum">
-							<div class="row">
-								<div class="avatar-froum-div col-lg-2" style="padding: 0px;">
-									<img class="avatar-froum" src='<c:url value="/resources/image/avatarresize/user.png"/>' alt="">
-								</div>
-								<div class="col-lg-10">
-									<a href="others.php?username=" style="font-weight: 500">Slytherin</a><br>
-									<span style="font-size: 15px;">Ngày đăng: </span>
-								</div>
-							</div>
-						</div>
-						<div>
-							<a href="image.php?id=" title="">
-								<img class="image-froum" src='<c:url value="/resources/image/resize/dog_mountains_sitting_121350_3840x2160.jpg"/>' alt="">
-							</a>
-						</div>
-						<div class="icon-like">
-							<button id="like-<?php echo $item['MaHinhAnh']?>">
-								<img src='<c:url value="/resources/image/icon/like-like.png"/>'>
-							</button>
-							<span>Thích</span>
-						</div>
-						<div class="describe-image">
-							<span>0 lượt thích</span><br>
-							<span>Mô tả</span><br>
-						</div>
-					</div>
-					<div class="froum-content">
-						<div class="header-avatar-froum">
-							<div class="row">
-								<div class="avatar-froum-div col-lg-2" style="padding: 0px;">
-									<img class="avatar-froum" src='<c:url value="/resources/image/avatarresize/user.png"/>' alt="">
-								</div>
-								<div class="col-lg-10">
-									<a href="others.php?username=" style="font-weight: 500">Slytherin</a><br>
-									<span style="font-size: 15px;">Ngày đăng: </span>
+					<c:forEach items="${dshinhanh}" var="hinhanh">
+						<div class="froum-content">
+							<div class="header-avatar-froum">
+								<div class="row">
+									<div class="avatar-froum-div col-lg-2" style="padding: 0px;">
+										<img class="avatar-froum" src='<c:url value="/resources/image/avatarresize/${hinhanh.getTaikhoan().getAnhDaiDien() }"/>' alt="">
+									</div>
+									<div class="col-lg-10">
+										<a href="others.php?username=" style="font-weight: 500">${hinhanh.getTaikhoan().getTenDangNhap()}</a><br>
+										<span style="font-size: 15px;">Ngày đăng: ${hinhanh.getNgayDang() }</span>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div>
-							<a href="image.php?id=" title="">
-								<img class="image-froum" src='<c:url value="/resources/image/resize/resize_watercolor_eye_by_yumizu_chan-d82gcgo.jpg"/>' alt="">
-							</a>
-						</div>
-						<div class="icon-like">
-							<button id="like-<?php echo $item['MaHinhAnh']?>">
-								<img src='<c:url value="/resources/image/icon/like-like.png"/>'>
-							</button>
-							<span>Thích</span>
-						</div>
-						<div class="describe-image">
-							<span>0 lượt thích</span><br>
-							<span>Mô tả</span><br>
-						</div>
-					</div>
-					<div class="froum-content">
-						<div class="header-avatar-froum">
-							<div class="row">
-								<div class="avatar-froum-div col-lg-2" style="padding: 0px;">
-									<img class="avatar-froum" src='<c:url value="/resources/image/avatarresize/user.png"/>' alt="">
+							<div>
+								<a href="/Slytherin/hinhanh/${hinhanh.getTenHinhAnh()}" title="">
+									<img class="image-froum" src='<c:url value="/resources/image/resize/${hinhanh.getResize() }"/>' alt="">
+								</a>
+							</div>
+							<div class="row" style="padding-left:15px;padding-right:15px;">
+								<div class="icon-like col-lg-6">
+									<button id="like-${hinhanh.getMaHinhAnh() }">
+										<c:set var="continueExecuting" scope="request" value="false"/>
+										<c:forEach items="${thichs }" var="thich">
+											<c:if test="${thich.getTrangThai()==1 && thich.getHinhanh().getMaHinhAnh()==hinhanh.getMaHinhAnh() }">
+												<c:set var="continueExecuting" scope="request" value="true"/>
+												<img src='<c:url value="/resources/image/icon/like-like.png"/>'>
+											</c:if>
+											<c:if test="${thich.getTrangThai()==0 && thich.getHinhanh().getMaHinhAnh()==hinhanh.getMaHinhAnh() && continueExecuting==false}">
+												<img src='<c:url value="/resources/image/icon/like.png"/>'>
+											</c:if>
+											
+										</c:forEach>
+									</button>
+									<span>${hinhanh.getLikes() }</span>
 								</div>
-								<div class="col-lg-10">
-									<a href="others.php?username=" style="font-weight: 500">Slytherin</a><br>
-									<span style="font-size: 15px;">Ngày đăng: </span>
+								<div class="col-lg-6" align="right" style="padding-top:15px;">
+									<span>${hinhanh.getComments() } bình luận</span>
 								</div>
 							</div>
+							
+							<div class="describe-image">
+								<span>${hinhanh.getMoTaHinhAnh() }</span><br>
+							</div>
 						</div>
-						<div>
-							<a href="image.php?id=" title="">
-								<img class="image-froum" src='<c:url value="/resources/image/resize/phone_headphones_player_106009_3840x2160-min.jpg"/>' alt="">
-							</a>
-						</div>
-						<div class="icon-like">
-							<button id="like-<?php echo $item['MaHinhAnh']?>">
-								<img src='<c:url value="/resources/image/icon/like-like.png"/>'>
-							</button>
-							<span>Thích</span>
-						</div>
-						<div class="describe-image">
-							<span>0 lượt thích</span><br>
-							<span>Mô tả</span><br>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 				<div class="col-lg-4">
 					<div class="row" style="padding-left: 15px;">

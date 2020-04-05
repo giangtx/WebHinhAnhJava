@@ -57,6 +57,7 @@ public class HinhAnhController {
 		modelMap.addAttribute("binhluans", binhLuans);
 		modelMap.addAttribute("anhcungchude",anhcungchude);
 		modelMap.addAttribute("anhtaitro", anhtaitro);
+
 		
 		return "hinhanh";
 	}

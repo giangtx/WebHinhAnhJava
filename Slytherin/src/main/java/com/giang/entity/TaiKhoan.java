@@ -1,12 +1,16 @@
 package com.giang.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity(name="taikhoan")
@@ -21,17 +25,45 @@ public class TaiKhoan {
 	String Email;
 	int Active;
 	String Verification;
-	
-	@ManyToOne
-	@JoinColumn(name="MaChucVu")
-	ChucVu chucVu;
-	
-	String AnhDaiDien;
 	String HoTen;
 	String ThanhPho;
 	String QuocGia;
 	String GioiTinh;
 	String NgaySinh;
+	String AnhDaiDien;
+	@ManyToOne
+	@JoinColumn(name="MaChucVu")
+	ChucVu chucvu;
+	
+	@OneToMany(mappedBy = "taikhoan",fetch = FetchType.EAGER)
+	private Set<HinhAnh> hinhanhs;
+	
+	@OneToMany(mappedBy = "taikhoan",fetch = FetchType.EAGER)
+    private Set<BinhLuan> binhluans;
+
+    @OneToMany(mappedBy = "taikhoan",fetch = FetchType.EAGER)
+    private Set<Thich> thiches;
+	
+
+	public Set<HinhAnh> getHinhanhs() {
+		return hinhanhs;
+	}
+	public void setHinhanhs(Set<HinhAnh> hinhanhs) {
+		this.hinhanhs = hinhanhs;
+	}
+	public Set<BinhLuan> getBinhluans() {
+		return binhluans;
+	}
+	public void setBinhluans(Set<BinhLuan> binhluans) {
+		this.binhluans = binhluans;
+	}
+	public Set<Thich> getThiches() {
+		return thiches;
+	}
+	public void setThiches(Set<Thich> thiches) {
+		this.thiches = thiches;
+	}
+
 	public int getMaTaiKhoan() {
 		return MaTaiKhoan;
 	}
@@ -69,10 +101,10 @@ public class TaiKhoan {
 		Verification = verification;
 	}
 	public ChucVu getChucVu() {
-		return chucVu;
+		return chucvu;
 	}
 	public void setChucVu(ChucVu chucVu) {
-		this.chucVu = chucVu;
+		this.chucvu = chucVu;
 	}
 	public String getAnhDaiDien() {
 		return AnhDaiDien;

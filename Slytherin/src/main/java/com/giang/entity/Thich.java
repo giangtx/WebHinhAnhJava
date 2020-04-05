@@ -21,6 +21,7 @@ public class Thich {
 	@ManyToOne
 	@JoinColumn(name="MaHinhAnh")
 	HinhAnh hinhanh;
+	
 	int TrangThai;
 	public int getMaThich() {
 		return MaThich;

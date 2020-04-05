@@ -84,6 +84,7 @@ public class HinhAnhDAO implements HinhAnhimp{
 			return null;
 		}
 	}
+	@Transactional
 	public List<HinhAnh> LayDanhSachAnhChuaDuocDuyetTheoMaTaiKhoan(int maTaiKhoan){
 		Session session=sessionFactory.getCurrentSession();
 		try {
@@ -96,5 +97,20 @@ public class HinhAnhDAO implements HinhAnhimp{
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	@Transactional
+	public List<HinhAnh> LayDanhSachHinhAnhForum(){
+		Session session=sessionFactory.getCurrentSession();
+		List<HinhAnh> hinhanh=(List<HinhAnh>)session.createQuery("from hinhanh where PheDuyet=1 and MaTaiKhoan>0 order by NgayDang DESC").getResultList();
+		return hinhanh;
+	}
+	@Transactional
+	public boolean ThemHinhAnh(HinhAnh hinhanh){
+		Session session=sessionFactory.getCurrentSession();
+		int ma=(Integer) session.save(hinhanh);
+		if (ma>1) {
+			return true;
+		}else
+			return false;
 	}
 }

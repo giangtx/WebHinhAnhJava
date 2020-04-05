@@ -100,7 +100,8 @@
 								
 							</button>
 							<span>Thích</span>
-							<span style="margin-left: 25px;">999 lượt thích</span><br>
+							<span style="margin-left: 25px;">${hinhanh.getLikes() } lượt thích</span>
+							<span style="margin-left: 25px;">${hinhanh.getComments() } bình luận</span><br>
 							<span>Ngày đăng: ${hinhanh.getNgayDang() }</span>
 						</div>
 						<div class="image-info-header-text">

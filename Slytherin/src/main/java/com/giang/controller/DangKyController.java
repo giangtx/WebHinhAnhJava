@@ -31,7 +31,7 @@ public class DangKyController {
 	@PostMapping("/xulydangky")
 	@ResponseBody
 	@Transactional
-	public String XuLyDangKy(@RequestParam String username, @RequestParam String password, String email){
+	public String XuLyDangKy(@RequestParam String username, @RequestParam String password,@RequestParam String email){
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String hashedPassword = passwordEncoder.encode(password);
 		

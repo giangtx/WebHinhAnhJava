@@ -1,9 +1,14 @@
 package com.giang.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity(name="bosuutap")
 public class BoSuuTap {
@@ -14,6 +19,16 @@ public class BoSuuTap {
 	String TenBoSuuTap;
 	String AnhBoSuuTap;
 	String MoTa;
+	
+    @OneToMany(mappedBy = "bosuutap",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Set<HinhAnh> hinhanhs;
+	
+	public Set<HinhAnh> getHinhanhs() {
+		return hinhanhs;
+	}
+	public void setHinhanhs(Set<HinhAnh> hinhanhs) {
+		this.hinhanhs = hinhanhs;
+	}
 	public int getMaBoSuuTap() {
 		return MaBoSuuTap;
 	}

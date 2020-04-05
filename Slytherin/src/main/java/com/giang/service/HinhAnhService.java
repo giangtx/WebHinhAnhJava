@@ -52,5 +52,13 @@ public class HinhAnhService implements HinhAnhimp{
 		List<HinhAnh> hinhanh=hinhAnhDAO.LayDanhSachAnhChuaDuocDuyetTheoMaTaiKhoan(maTaiKhoan);
 		return hinhanh;
 	}
+	public List<HinhAnh> LayDanhSachHinhAnhForum(){
+		List<HinhAnh> hinhanh=hinhAnhDAO.LayDanhSachHinhAnhForum();
+		return hinhanh;
+	}
+	public boolean ThemHinhAnh(HinhAnh hinhanh){
+		boolean kt=hinhAnhDAO.ThemHinhAnh(hinhanh);
+		return kt;
+	}
 	
 }

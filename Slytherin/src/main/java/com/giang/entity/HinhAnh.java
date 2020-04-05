@@ -1,11 +1,15 @@
 package com.giang.entity;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Entity(name="hinhanh")
@@ -26,10 +30,49 @@ public class HinhAnh {
 	@JoinColumn(name="MaTaiKhoan")
 	TaiKhoan taikhoan;
 	
+	@OneToMany(mappedBy = "hinhanh",fetch = FetchType.EAGER)
+    private Set<BinhLuan> binhLuans;
+
+    @OneToMany(mappedBy = "hinhanh",fetch = FetchType.EAGER)
+    private Set<Thich> thichs;
+	
+	public Set<BinhLuan> getBinhLuans() {
+		return binhLuans;
+	}
+	public void setBinhLuans(Set<BinhLuan> binhLuans) {
+		this.binhLuans = binhLuans;
+	}
+	public Set<Thich> getThichs() {
+		return thichs;
+	}
+	public void setThichs(Set<Thich> thichs) {
+		this.thichs = thichs;
+	}
+	public void setAnhTaiTro(Integer anhTaiTro) {
+		AnhTaiTro = anhTaiTro;
+	}
+	public void setPheDuyet(Integer pheDuyet) {
+		PheDuyet = pheDuyet;
+	}
 	Integer AnhTaiTro;
 	Integer PheDuyet;
 	String Resize;
 	String NgayDang;
+	Integer likes;
+	Integer comments;
+	
+	public Integer getLikes() {
+		return likes;
+	}
+	public void setLikes(Integer likes) {
+		this.likes = likes;
+	}
+	public Integer getComments() {
+		return comments;
+	}
+	public void setComments(Integer comments) {
+		this.comments = comments;
+	}
 	public int getMaHinhAnh() {
 		return MaHinhAnh;
 	}
